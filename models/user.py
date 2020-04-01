@@ -2,6 +2,8 @@
 """This is the user class"""
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Integer
+import os
+
 
 class User(BaseModel, Base):
     """This is the class for user
@@ -22,5 +24,3 @@ class User(BaseModel, Base):
         password = ""
         first_name = ""
         last_name = ""
-
-
