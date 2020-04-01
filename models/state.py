@@ -7,7 +7,7 @@ import models
 from sqlalchemy.orm import relationship
 
 
-class State(BaseModel):
+class State(BaseModel, Base):
     """This is the class for State
     """
     __tablename__ = 'states'
