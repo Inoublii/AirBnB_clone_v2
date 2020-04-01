@@ -32,28 +32,23 @@ class HBNBCommand(cmd.Cmd):
         """Quit command to exit the program at end of file"""
         return True
 
-    def do_create(self, line_command):
-        """Creates a new instance of BaseModel, saves it
-        """
-        list = line_command.split()
-        if len(list) == 0:
-            print("** 	 **")
+    def do_create(self, line):
+        """Creates a new instance of BaseModel, saves it"""
+        if len(line) == 0:
+            print("** class name missing **")
             return
         try:
-            arg = list[0]
-            eq = '='
-            u_score = '_'
-            space = ' '
-            obj = eval("{}()".format(arg))
-            l = len(list)
-            for i in range(l):
-                if eq in list[i]:
-                    key, value = list[i].split(eq)
-                    value = value.replace(space, u_score)
+            list = line.split(" ")
+            classname = list[0]
+            obj = eval(classname)()
+            for i in range(len(list)):
+                if '=' in list[i]:
+                    key, value = list[i].split('=')
+                    value = value.replace('_', ' ')
                     if hasattr(obj, key):
                         setattr(obj, key, eval(value))
                 else:
-                    continue
+                    pass
             obj.save()
             print("{}".format(obj.id))
         except NameError:
