@@ -17,7 +17,6 @@ class BaseModel:
     created_at = Column(datetime, nullable=False, default=datetime.utcnow())
     updated_at = Column(datetime, nullable=False, default=datetime.utcnow())
 
-
     def __init__(self, *args, **kwargs):
         """Instantiation of base model class
         Args:
@@ -37,7 +36,6 @@ class BaseModel:
         else:
             self.id = str(uuid.uuid4())
             self.created_at = self.updated_at = datetime.now()
-
 
     def __str__(self):
         """returns a string
@@ -74,3 +72,6 @@ class BaseModel:
             pass
         return my_dict
 
+    def delete(self):
+        """ deletes the current instance"""
+        models.storage.delete(self)

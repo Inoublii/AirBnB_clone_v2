@@ -10,7 +10,7 @@ from sqlalchemy.orm import relationship
 class State(BaseModel):
     """This is the class for State
     """
-    __tablename__= 'states'
+    __tablename__ = 'states'
 
     name = Column(String(128), nullable=False)
     cities = relationship("City", passive_deletes=True, backref="state")
