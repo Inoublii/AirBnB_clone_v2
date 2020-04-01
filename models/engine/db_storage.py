@@ -14,7 +14,7 @@ from models.place import Place
 from os import getenv
 
 
-class DBstorage:
+class DBStorage:
     """
     """
     __engine = None
