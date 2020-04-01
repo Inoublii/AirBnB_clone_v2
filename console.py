@@ -44,9 +44,7 @@ class HBNBCommand(cmd.Cmd):
             for i in range(len(list)):
                 if '=' in list[i]:
                     key, value = list[i].split('=')
-                    value = value.replace('_', ' ')
-                    if '"' in value:
-                        value = value.split('"')[1]
+                    value = eval(value.replace('_', ' '))
                     setattr(obj, key, value)
             obj.save()
             print("{}".format(obj.id))
