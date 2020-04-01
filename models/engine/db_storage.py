@@ -19,7 +19,7 @@ class DBStorage:
     """
     __engine = None
     __session = None
-    all_classes = ["State", "City"]
+    all_classes = ["User", "State", "City"]
 
     def __init__(self):
         """
