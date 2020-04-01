@@ -18,6 +18,8 @@ class State(BaseModel):
     @property
     def cities(self):
         """Return all cities"""
+        from models import storage
+        allcities = storage.all(City)
         city_list = [v for v in models.storage.all(City).values()
         if v.state_id == self.id]
         return city_list
