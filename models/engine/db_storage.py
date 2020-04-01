@@ -19,6 +19,7 @@ class DBstorage:
     """
     __engine = None
     __session = None
+    all_classes = ["State", "City"]
 
     def __init__(self):
         """
@@ -67,6 +68,7 @@ class DBstorage:
     def reload(self):
         """
         """
+        Base.metadata.create_all(self.__engine)
         sessionf = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(sessionf)
         self.__session = Session()
