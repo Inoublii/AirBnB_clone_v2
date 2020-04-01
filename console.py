@@ -45,10 +45,9 @@ class HBNBCommand(cmd.Cmd):
                 if '=' in list[i]:
                     key, value = list[i].split('=')
                     value = value.replace('_', ' ')
-                    if hasattr(obj, key):
-                        setattr(obj, key, eval(value))
-                else:
-                    pass
+                    if '"' in value:
+                        value = value.split('"')[1]
+                    setattr(obj, key, value)
             obj.save()
             print("{}".format(obj.id))
         except NameError:
