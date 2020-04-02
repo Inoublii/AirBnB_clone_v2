@@ -19,11 +19,10 @@ class DBStorage:
     """
     __engine = None
     __session = None
-    all_classes = ["User", "State", "City", "Place", "Review", "Amenity"]
+    all_classes = ["User", "State", "City", "Place", "Review"]
 
     def __init__(self):
         """
-
         """
         self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(
                 getenv("HBNB_MYSQL_USER"),
