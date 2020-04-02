@@ -32,4 +32,19 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, default=0, nullable=False)
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
+    reviews = relationship("Review", cascade="all,delete", backref="place")
     amenity_ids = []
+
+
+    @property
+    def reviews(self):
+        """
+        the getter attribute reviews
+        """
+        from models import storage
+        r = {}
+        all_reviews = storage.all(Review)
+        for k, v in all_reviews.items():
+            if v.place_id == self.id:
+                r[k] = v
+        return r
