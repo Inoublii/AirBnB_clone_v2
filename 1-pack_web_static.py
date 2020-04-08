@@ -9,6 +9,8 @@ from fabric.api import local
 def do_pack():
     """function"""
     local("mkdir -p versions")
-    full = "versions/web_static_{}.tgz.format(
+    full = "versions/web_static_{}.tgz".format(
         datetime.now.strftime("%Y%m%d%H%M%S"))
+    if full is None:
+        return(None)
     return(local("tar -cvzf {} web_static".format(full)))
