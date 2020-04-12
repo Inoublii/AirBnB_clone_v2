@@ -6,7 +6,8 @@ from fabric.api import *
 
 
 def do_pack():
-    """function"""
+    """fabric script that
+    compresses files"""
 
     datenow = strftime("%Y%m%d%H%M%S")
     local("mkdir -p versions")
