@@ -5,26 +5,22 @@
 from time import strftime
 from fabric.api import *
 from fabric.operations import run, put, sudo
-import os
 import os.path
 from datetime import datetime
 env.hosts = ["35.227.78.112	", "54.81.167.121"]
 
 
 def do_pack():
-    """fabric script that
-    compresses files"""
-
-    datenow = strftime("%Y%m%d%H%M%S")
-    local("mkdir -p versions")
-    creat = local(
-        "tar -cvzf versions/\web_static_{}.tgz web_static".format(datenow))
-    size = os.stat("versions/web_static_{}.tgz".format(datenow)).st_size
-    if creat.succeeded:
-        print("web_static packed:\
-versions/web_static_{}.tgz -> {}Bytes".format(datenow, size))
-    else:
-        return None
+    ''' def do pack
+    '''
+    date = datetime.now().strftime("%Y%m%d%H%M%S")
+    path = 'versions/web_static_' + date + '.tgz'
+    if not (os.path.exists("versions")):
+        local('mkdir -p versions')
+    local('tar -cvzf ' + path + ' web_static')
+    if (os.path.exists(path)):
+        return path
+    return None
 
 
 def do_deploy(archive_path):
