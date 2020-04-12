@@ -5,6 +5,7 @@ from time import strftime
 from fabric.api import *
 import os
 
+
 def do_pack():
     """fabric script that
     compresses files"""
