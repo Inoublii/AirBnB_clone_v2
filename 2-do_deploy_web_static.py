@@ -6,22 +6,26 @@ from datetime import datetime
 from fabric.api import *
 import sys
 import os
-env.hosts = ["34.73.0.225", "35.229.78.70"]
+env.user = 'ubuntu'
+env.hosts = ["35.227.78.112	", "54.81.167.121"]
 
 
 def do_pack():
     """function"""
+    n = datetime.now()
+    name = "web_static_{}{}{}{}{}{}.tgz".format(n.year, n.month,
+                                                n.day, n.hour,
+                                                n.minute, n.second)
     local("mkdir -p versions")
-    full = "versions/web_static_{}.tgz".format(
-        datetime.now.strftime("%Y%m%d%H%M%S"))
-    if full is None:
+    if name is None:
         return(None)
-    return(local("tar -cvzf {} web_static".format(full)))
+    return(local("tar -cvzf {} web_static".format(name)))
+
 
 
 def do_deploy(archive_path):
     '''func deploy'''
-    if not os.path.exists(archive_path):
+    if not archive_path:
         return(False)
     try:
         put(archive_path, "/tmp/")
@@ -37,5 +41,5 @@ def do_deploy(archive_path):
         run("rm -rf /data/web_static/current")
         run("sudo ln -s {} /data/web_static/current".format(deploy_path))
         return(True)
-    except:
+    except BaseException:
         return(False)

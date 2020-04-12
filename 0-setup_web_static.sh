@@ -2,14 +2,10 @@
 sudo mkdir -p /data/web_static/releases/test
 sudo mkdir -p /data/web_static/shared
 sudo chown ubuntu:ubuntu -R /data/
-echo "<html>
-  <head>
-  </head>
-  <body>
-    Holberton School
-  </body>
-</html>" > /data/web_static/releases/test/index.html
-ln -sf /data/web_static/releases/test  /data/web_static/current
-location= "\\n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n"
-sudo sed -i "/server_name _;/ i $location" /etc/nginx/sites-available/default
+echo "Holberton School" | sudo tee /data/web_static/releases/test/index.html
+sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
+FILE=/etc/nginx/sites-available/default
+REDIRECT_STRING="location /hbnb_static {\n alias /data/web_static/current; \n}\n"
+sudo sed -i "39i $REDIRECT_STRING" $FILE
 sudo service nginx restart
+
