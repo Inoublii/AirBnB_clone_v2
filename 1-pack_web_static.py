@@ -1,18 +1,17 @@
-#!/usr/bin/python3
-'''Fabric script that generates a .tgz archive from the contents
-   of Airbnb_clone_v2
-'''
-from datetime import datetime
-from fabric.api import local
+#!/usr/bin/env bash
+# script to set up web servers for web_static deployment
+sudo apt-get install update
+sudo apt-get install -y nginx
 
+sudo mkdir -p /data/web_static/releases/test
+sudo mkdir -p /data/web_static/shared
 
-def do_pack():
-    """function"""
-    n = datetime.now()
-    name = "web_static_{}{}{}{}{}{}.tgz".format(n.year, n.month,
-                                                n.day, n.hour,
-                                                n.minute, n.second)
-    local("mkdir -p versions")
-    if name is None:
-        return(None)
-    return(local("tar -cvzf {} web_static".format(name)))
+echo "Holberton School" | sudo tee /data/web_static/releases/test/index.html
+
+sudo ln -sf /data/web_static/releases/test /data/web_static/current
+
+sudo chown -R ubuntu:ubuntu /data/
+
+sudo sed -i '35 i\   \tlocation /hbnb_static {\n\talias /data/web_static/current;\n}' /etc/nginx/sites-available/default
+
+sudo service nginx restart
