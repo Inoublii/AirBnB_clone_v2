@@ -44,3 +44,44 @@ def do_deploy(archive_path):
     except:
         return False
 
+
+def deploy():
+    ''' def deploy '''
+    try:
+        addr = do_pack()
+        take = do_deploy(addr)
+        return take
+    except:
+        return False
+
+
+def do_clean(number=0):
+    """
+    deletes out-of-date archives.
+    Return True if there is not operation to do otherwise False if an error is
+    raised
+    """
+    try:
+        number = int(number)
+    except Exception:
+        return False
+    archives_nb = local('ls -ltr versions | wc -l', capture=True).stdout
+    archives_nb = int(archives_nb) - 1
+    if (archives_nb <= 0 or archives_nb == 1):
+        return True
+    if (number == 0 or number == 1):
+        remove_nb = archives_nb - 1
+    else:
+        remove_nb = archives_nb - number
+        if (remove_nb <= 0):
+            return True
+    archives_list = local("ls -ltr versions | tail -n " + str(archives_nb) + "\
+            | head -n \
+            " + str(remove_nb) + "\
+            | awk '{print $9}'", capture=True).rsplit("\n")
+    if len(archives_list) >= 1:
+        for archive_name in archives_list:
+            if (archive_name != ''):
+                local('rm versions/' + archive_name)
+                run('rm -rf /data/web_static/releases/\
+                    ' + archive_name.split('.')[0])
