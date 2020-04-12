@@ -3,7 +3,7 @@
 '''
 from time import strftime
 from fabric.api import *
-
+import os
 
 def do_pack():
     """fabric script that
@@ -12,7 +12,8 @@ def do_pack():
     datenow = strftime("%Y%m%d%H%M%S")
     local("mkdir -p versions")
     creat = local("tar -cvzf versions/web_static_{}.tgz web_static".format(datenow))
+    size = os.stat("versions/web_static_{}.tgz".format(datenow)).st_size
     if creat.succeeded:
-        return ("versions/web_static_{}".format(datenow))
+        print("web_static packed: versions/web_static_{}.tgz -> {}".format(datenow, size))
     else:
         return None
