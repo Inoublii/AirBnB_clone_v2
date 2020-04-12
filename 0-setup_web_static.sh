@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+sudo apt-get install update
+sudo apt-get install -y nginx
 sudo mkdir -p /data/web_static/releases/test
 sudo mkdir -p /data/web_static/shared
 sudo chown ubuntu:ubuntu -R /data/
