@@ -14,6 +14,6 @@ def do_pack():
     creat = local("tar -cvzf versions/web_static_{}.tgz web_static".format(datenow))
     size = os.stat("versions/web_static_{}.tgz".format(datenow)).st_size
     if creat.succeeded:
-        print("web_static packed: versions/web_static_{}.tgz -> {}".format(datenow, size))
+        print("web_static packed: versions/web_static_{}.tgz -> {}Bytes".format(datenow, size))
     else:
         return None
