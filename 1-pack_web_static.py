@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 '''Fabric script
 '''
+from time import strftime
 from datetime import datetime
-from fabric.api import *
 
 
 def do_pack():
