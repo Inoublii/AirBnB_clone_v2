@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-'''Fabric script that generates a .tgz archive from the contents
-   of Airbnb_clone_v2
+'''Fabric script 
 '''
 from time import strftime
 from fabric.api import *
