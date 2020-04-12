@@ -2,25 +2,29 @@
 '''Fabric script that generates a .tgz archive from the contents
    of Airbnb_clone_v2
 '''
-from datetime import datetime
+from time import strftime
 from fabric.api import *
-import sys
 import os
+from datetime import datetime
+import sys
 env.user = 'ubuntu'
 env.hosts = ["35.227.78.112	", "54.81.167.121"]
 
 
 def do_pack():
-    """function"""
-    n = datetime.now()
-    name = "web_static_{}{}{}{}{}{}.tgz".format(n.year, n.month,
-                                                n.day, n.hour,
-                                                n.minute, n.second)
-    local("mkdir -p versions")
-    if name is None:
-        return(None)
-    return(local("tar -cvzf {} web_static".format(name)))
+    """fabric script that
+    compresses files"""
 
+    datenow = strftime("%Y%m%d%H%M%S")
+    local("mkdir -p versions")
+    creat = local(
+        "tar -cvzf versions/\web_static_{}.tgz web_static".format(datenow))
+    size = os.stat("versions/web_static_{}.tgz".format(datenow)).st_size
+    if creat.succeeded:
+        print("web_static packed:\
+versions/web_static_{}.tgz -> {}Bytes".format(datenow, size))
+    else:
+        return None
 
 
 def do_deploy(archive_path):
