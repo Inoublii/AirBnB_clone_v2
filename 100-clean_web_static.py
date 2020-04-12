@@ -2,6 +2,8 @@
 '''Fabric script that generates a .tgz archive from the contents
    of Airbnb_clone_v2
 '''
+
+
 def do_clean(number=0):
     ''' def do_clean '''
     if number == 0 or number == 1:
