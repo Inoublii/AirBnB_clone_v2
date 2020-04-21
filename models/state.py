@@ -6,15 +6,19 @@ import models
 from sqlalchemy.orm import relationship
 import os
 
+storage_type = os.getenv('HBNB_TYPE_STORAGE')
+
 
 class State(BaseModel, Base):
     """This is the class for State
     """
     __tablename__ = 'states'
 
-    name = Column(String(128), nullable=False)
-    cities = relationship("City", cascade="all,delete", backref="state")
-
+    if (storage_type == 'db'):
+        name = Column(String(128), nullable=False)
+        cities = relationship("City", cascade="all,delete", backref="state")
+    else:
+        name = ''
     @property
     def cities(self):
         """Return all cities"""
