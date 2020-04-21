@@ -9,10 +9,11 @@ def hello_world():
     """Hello"""
     return("Hello HBNB!")
 
+
 @app.route('/hbnb', strict_slashes=False)
 def hello_hbnb():
-	"""HBNB"""
-	return("HBNB")
+    """HBNB"""
+    return("HBNB")
 
 
 if __name__ == "__main__":
